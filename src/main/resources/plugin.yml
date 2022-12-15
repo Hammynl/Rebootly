@@ -4,3 +4,9 @@ main: hammynl.rebootly.Rebootly
 api-version: 1.19
 authors: [ Hammynl ]
 description: Rebootly is a Minecraft plugin which makes your server restart automatically with some extra features.
+commands:
+  rebootly:
+    description: "Shows the help page"
+    usage: "/rebootly"
+
+
