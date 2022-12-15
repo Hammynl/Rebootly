@@ -10,7 +10,7 @@ public final class Rebootly extends JavaPlugin {
 
 
     private static Rebootly main;
-    private int timer = 5644779;
+    private int timer = 1022;
 
     public int getTime() {
         return timer;
@@ -20,6 +20,7 @@ public final class Rebootly extends JavaPlugin {
     public static Rebootly getMain() {
         return main;
     }
+
     @Override
     public void onEnable() {
         main = this;
