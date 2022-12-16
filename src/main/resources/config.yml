@@ -1,1 +1,34 @@
-prefix: "&8[&a&lReboot&c&lLy&8]"
+# Prefix for all messages in Rebootly
+prefix: "&8[&a&lReboot&c&lly&8]"
+
+# Time in seconds before the server restarts
+time: 3600
+
+# The kick message all players get when the server is restarting.
+# Can be extended with more lines & color codes
+kick-message:
+  - "&6Server is restarting!"
+  - "&cJoin back in a &eLittle &aBit!"
+
+
+
+# If you want to get notifications on your phone when your server restarts and gets back online.
+# You can configure the CallMeBot message sender to send a message to your phone number via WhatsApp.
+# To get an API Key. Visit this link: https://www.callmebot.com/blog/free-api-whatsapp-messages/
+# Fill in the credentials below:
+
+phone:
+  # determines if this function is enabled
+  enabled: false
+
+  # API key you receive when you message the CallMeBot number
+  api-key: "1234567"
+
+  # Your phone number you used to message the CallMeBot number
+  phone-number: "31612345678"
+
+  # Messages to send to you whenever the server restarts
+  start:
+    message: "Server succesfully restarted!"
+  shutdown:
+    message: "Server is now restarting! Please manually start the server if you haven't received a confirmation in a couple minutes!"

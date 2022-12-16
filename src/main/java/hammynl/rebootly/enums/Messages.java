@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 public enum Messages {
 
     PREFIX("&8[&a&lReboot&c&lly&8] "),
+    RELOAD("&aSuccesfully reloaded!"),
     NO_PERMISSION("&cYou do not have permission to perform this command!"),
     NOT_PLAYER("&cYou must be a player to perform this command!");
 

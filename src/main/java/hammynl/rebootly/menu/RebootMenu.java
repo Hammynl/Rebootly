@@ -2,21 +2,28 @@ package hammynl.rebootly.menu;
 
 import hammynl.rebootly.Rebootly;
 import hammynl.rebootly.enums.Menu;
-import hammynl.rebootly.enums.Messages;
+import hammynl.rebootly.utils.ServerTimer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class RebootMenu extends BaseMenu {
 
-    public RebootMenu() {
+    private final Rebootly plugin;
+    private BukkitTask clockTask;
+    public RebootMenu(Rebootly plugin) {
         super(5, Menu.MENU_MAIN.toString());
+        this.plugin = plugin;
         setMenuItems();
+
     }
 
     private String[] ConvertSecondToHHMMString(int secondtTime)
@@ -32,13 +39,21 @@ public class RebootMenu extends BaseMenu {
     @Override
     protected void setMenuItems() {
         Inventory inv = getInventory();
-        String[] timeLeft = ConvertSecondToHHMMString(Rebootly.getMain().getTime());
+        clockTask = new BukkitRunnable() {
 
-        inv.setItem(4, createItem(Material.CLOCK, 1, Menu.TIME_LEFT.toString(),
-                "&7Hours: " + timeLeft[0],
-                "&7Minutes: " + timeLeft[1],
-                "&7Seconds: " + timeLeft[2]
-        ));
+            @Override
+            public void run() {
+                String[] timeLeft = ConvertSecondToHHMMString(ServerTimer.getInstance().getTime());
+
+                inv.setItem(4, createItem(Material.CLOCK, 1, Menu.TIME_LEFT.toString(),
+                        "&7Hours: " + timeLeft[0],
+                        "&7Minutes: " + timeLeft[1],
+                        "&7Seconds: " + timeLeft[2]
+                ));
+            }
+        }.runTaskTimer(plugin, 0, 20);
+
+
 
         inv.setItem(11, createItem(Material.GREEN_TERRACOTTA, 1, Menu.ADD_OPTION_1.toString(), "&7Click to add this amount of time"));
         inv.setItem(12, createItem(Material.GREEN_TERRACOTTA, 1, Menu.ADD_OPTION_2.toString(), "&7Click to add this amount of time"));
@@ -58,6 +73,23 @@ public class RebootMenu extends BaseMenu {
 
     @Override
     public void handleClicks(InventoryClickEvent event) {
+        ServerTimer timer = ServerTimer.getInstance();
 
+        if(event.getSlot() == 11) timer.addTime(30);
+        if(event.getSlot() == 12) timer.addTime(60);
+        if(event.getSlot() == 13) timer.addTime(300);
+        if(event.getSlot() == 14) timer.addTime(900);
+        if(event.getSlot() == 15) timer.addTime(1800);
+
+        if(event.getSlot() == 22) plugin.restartNotify();
+
+        if(event.getSlot() == 29) timer.removeTime(30);
+        if(event.getSlot() == 30) timer.removeTime(60);
+        if(event.getSlot() == 31) timer.removeTime(300);
+        if(event.getSlot() == 32) timer.removeTime(900);
+        if(event.getSlot() == 33) timer.removeTime(1800);
+
+        setMenuItems();
+        clockTask.cancel();
     }
 }
