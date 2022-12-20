@@ -3,6 +3,7 @@ package hammynl.rebootly;
 import hammynl.rebootly.commands.RebootlyCommand;
 import hammynl.rebootly.listeners.MenuListener;
 import hammynl.rebootly.utils.ServerTimer;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -31,6 +32,7 @@ public final class Rebootly extends JavaPlugin {
         registerEvents();
 
         if(getConfigBoolean("phone.enabled")) sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.key"));
+        if(getConfigBoolean("metrics")) new Metrics(this, 17126);
 
         ServerTimer.getInstance().createTimer(getConfigInt("time"), this);
 
@@ -57,6 +59,7 @@ public final class Rebootly extends JavaPlugin {
     private Boolean getConfigBoolean(String s) {
         return getConfig().getBoolean(s);
     }
+
     // Config getters
     private String getConfigString(String s) {
         return getConfig().getString(s);

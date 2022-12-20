@@ -7,6 +7,6 @@ description: Rebootly is a Minecraft plugin which makes your server restart auto
 commands:
   rebootly:
     description: "Shows the help page"
-    usage: "/rebootly"
+    usage: "Incorrect usage! use '/rebootly' to find out the correct syntax!"
 
 

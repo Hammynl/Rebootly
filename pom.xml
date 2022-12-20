@@ -6,7 +6,7 @@
 
     <groupId>hammynl</groupId>
     <artifactId>rebootly</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1-BETA</version>
     <packaging>jar</packaging>
 
     <name>Rebootly</name>
@@ -34,6 +34,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>hammynl.rebootly</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -74,5 +83,13 @@
             <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>

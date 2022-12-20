@@ -5,9 +5,13 @@ import hammynl.rebootly.enums.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public abstract class BaseCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class BaseCommand implements CommandExecutor, TabCompleter {
 
     private Rebootly main;
 
@@ -32,6 +36,7 @@ public abstract class BaseCommand implements CommandExecutor {
     }
 
     protected abstract void handleCommand(CommandSender sender, String[] args);
+    protected abstract List<String> handleTabComplete(CommandSender sender, String[] args);
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -49,11 +54,18 @@ public abstract class BaseCommand implements CommandExecutor {
 
         if(args.length > maxArgs || args.length < minArgs)
         {
-            sender.sendMessage(main.getCommand(command).getUsage());
+            sender.sendMessage(Messages.INCORRECT_USAGE.toStringPrefix());
             return true;
         }
 
         handleCommand(sender, args);
         return true;
     }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return handleTabComplete(sender, args);
+    }
+
+
 }

@@ -1,5 +1,8 @@
 # Prefix for all messages in Rebootly
-prefix: "&8[&a&lReboot&c&lly&8]"
+prefix: "&8[&a&lReboot&c&lly&8] "
+
+# Enable metrics data?
+metrics: true
 
 # Time in seconds before the server restarts
 time: 3600
