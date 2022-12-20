@@ -98,7 +98,7 @@ public class ServerTimer {
 
             if(timeInSeconds == executableTime) {
                 for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(executableInput);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', executableInput));
                 }
             }
             messageCount++;
