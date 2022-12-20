@@ -71,6 +71,10 @@ public class ServerTimer {
                 @Override
                 public void run() {
                     timeInSeconds--;
+
+                    sendTimedCommands(timeInSeconds, plugin);
+                    sendTimedMessages(timeInSeconds, plugin);
+
                     if(timeInSeconds < 0) {
                         plugin.restartNotify();
                     }
@@ -82,5 +86,46 @@ public class ServerTimer {
             Bukkit.getConsoleSender().sendMessage(Messages.INCORRECT_CRON.toStringPrefix());
         }
 
+    }
+
+    private void sendTimedMessages(int timeInSeconds, Rebootly plugin) {
+        int messageCount = 0;
+
+        while(plugin.getConfig().getString("messages." + messageCount) != null) {
+
+            String executableInput = plugin.getConfig().getString("messages." + messageCount + ".message");
+            int executableTime = plugin.getConfig().getInt("messages." + messageCount + ".time");
+
+            if(timeInSeconds == executableTime) {
+                for(Player player : Bukkit.getOnlinePlayers()) {
+                    player.sendMessage(executableInput);
+                }
+            }
+            messageCount++;
+        }
+    }
+
+    public void sendTimedCommands(int timeInSeconds, Rebootly plugin) {
+        int executableCount = 0;
+
+        while(plugin.getConfig().getString("commands." + executableCount) != null) {
+
+            String executableInput = plugin.getConfig().getString("commands." + executableCount + ".input");
+            String executableType = plugin.getConfig().getString("commands." + executableCount + ".type");
+            int executableTime = plugin.getConfig().getInt("commands." + executableCount + ".time");
+
+            if(timeInSeconds == executableTime) {
+
+                if(executableType.equalsIgnoreCase("player")) {
+                    for(Player player : Bukkit.getOnlinePlayers()) {
+                        Bukkit.dispatchCommand(player, executableInput);
+                    }
+                }
+                else if(executableType.equalsIgnoreCase("console")) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), executableInput);
+                }
+            }
+            executableCount++;
+        }
     }
 }

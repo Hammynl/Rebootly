@@ -29,10 +29,50 @@ restart:
 
 # The kick message all players get when the server is restarting.
 # Can be extended with more lines & color codes
+# In case you want players to go to a fallback server, You can create a timed command which sends a player to a different server and ignore this option.
 kick-message:
   - "&6Server is restarting!"
   - "&cJoin back in a &eLittle &aBit!"
 
+############################################################
+# +------------------------------------------------------+ #
+# |                 Timed messages                       | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Create new automated messages sent to every player.
+# by adding a new number and defining the message and time when it needs to be sent
+messages:
+  0:
+    message: "&6Server will restart in 60 seconds!"
+    time: 60
+  1:
+    message: "&cServer will restart in 30 seconds!"
+    time: 30
+  2:
+    message: "&4Server will restart in 5 seconds!"
+    time: 5
+
+############################################################
+# +------------------------------------------------------+ #
+# |                 Timed commands                       | #
+# +------------------------------------------------------+ #
+############################################################
+
+# To create a new command add a new number and define the input, type and time.
+# input is the command which will be run. type is the person executing the command.
+# type can be either "player" or "console"
+# And the time of course to define when to run the command.
+commands:
+  0:
+    # You don't need to add a / before the command!
+    input: "server hub"
+    type: "player"
+    time: 3
+  1:
+    input: "save-all"
+    type: "console"
+    time: 30
 
 ############################################################
 # +------------------------------------------------------+ #
