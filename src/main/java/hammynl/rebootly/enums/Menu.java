@@ -15,7 +15,7 @@ public enum Menu {
     REMOVE_OPTION_1("&c-30 seconds"),
     REMOVE_OPTION_2("&c-60 seconds"),
     REMOVE_OPTION_3("&c-5 minutes"),
-    REMOVE_OPTION_4("&c-10 minutes"),
+    REMOVE_OPTION_4("&c-15 minutes"),
     REMOVE_OPTION_5("&c-30 minutes");
 
 

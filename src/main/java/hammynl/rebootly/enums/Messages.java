@@ -10,7 +10,8 @@ public enum Messages {
     TIME("&aThere is currently [time] left before the server restarts!"),
     INCORRECT_USAGE("&cIncorrect usage! use '&a/rebootly&c' to find out the correct syntax!"),
     NO_PERMISSION("&cYou do not have permission to perform this command!"),
-    NOT_PLAYER("&cYou must be a player to perform this command!");
+    NOT_PLAYER("&cYou must be a player to perform this command!"),
+    INCORRECT_CRON("&4&LWARNING! &cThe specified cron time is incorrect! Please check your crontab. The server will not automatically restart");
 
     private final String message;
 

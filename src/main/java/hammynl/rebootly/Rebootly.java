@@ -34,8 +34,14 @@ public final class Rebootly extends JavaPlugin {
         if(getConfigBoolean("phone.enabled")) sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.key"));
         if(getConfigBoolean("metrics")) new Metrics(this, 17126);
 
-        ServerTimer.getInstance().createTimer(getConfigInt("time"), this);
-
+        if(getConfigBoolean("restart.cron.enabled"))
+        {
+            ServerTimer.getInstance().createCronTimer(getConfigString("restart.cron.crontab"), this);
+        }
+        else
+        {
+            ServerTimer.getInstance().createTimer(getConfigInt("restart.seconds.value"), this);
+        }
     }
 
     @Override
