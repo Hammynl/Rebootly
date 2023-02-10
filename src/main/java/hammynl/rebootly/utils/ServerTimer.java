@@ -4,7 +4,6 @@ import hammynl.rebootly.Rebootly;
 import hammynl.rebootly.enums.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.quartz.CronExpression;
@@ -50,8 +49,12 @@ public class ServerTimer {
             @Override
             public void run() {
                 timeInSeconds--;
+                sendTimedCommands(timeInSeconds, plugin);
+                sendTimedMessages(timeInSeconds, plugin);
                 if(timeInSeconds < 0) {
-                    plugin.restartNotify();
+                    restartNotify(plugin);
+
+
                 }
             }
         }.runTaskTimer(plugin, 0, 20);
@@ -76,7 +79,7 @@ public class ServerTimer {
                     sendTimedMessages(timeInSeconds, plugin);
 
                     if(timeInSeconds < 0) {
-                        plugin.restartNotify();
+                        restartNotify(plugin);
                     }
                 }
             }.runTaskTimer(plugin, 0, 20);
@@ -105,7 +108,7 @@ public class ServerTimer {
         }
     }
 
-    public void sendTimedCommands(int timeInSeconds, Rebootly plugin) {
+    private void sendTimedCommands(int timeInSeconds, Rebootly plugin) {
         int executableCount = 0;
 
         while(plugin.getConfig().getString("commands." + executableCount) != null) {
@@ -127,5 +130,18 @@ public class ServerTimer {
             }
             executableCount++;
         }
+    }
+
+    public void restartNotify(Rebootly plugin) {
+        StringBuilder kickMessageBuilder = new StringBuilder();
+        for (String line : plugin.getStringList("kick-message")) {
+            kickMessageBuilder.append(line).append("\n");
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            String kickMessage = ChatColor.translateAlternateColorCodes('&', kickMessageBuilder.toString().replace("\\n", "\n"));
+            player.kickPlayer(kickMessage);
+        }
+        Bukkit.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart");
     }
 }

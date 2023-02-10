@@ -4,6 +4,7 @@ import hammynl.rebootly.Rebootly;
 import hammynl.rebootly.enums.Menu;
 import hammynl.rebootly.utils.ServerTimer;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -79,7 +80,7 @@ public class RebootMenu extends BaseMenu {
         if(event.getSlot() == 14) timer.addTime(900);
         if(event.getSlot() == 15) timer.addTime(1800);
 
-        if(event.getSlot() == 22) plugin.restartNotify();
+        if(event.getSlot() == 22) ServerTimer.getInstance().restartNotify(plugin);
 
         if(event.getSlot() == 29) timer.removeTime(30);
         if(event.getSlot() == 30) timer.removeTime(60);
