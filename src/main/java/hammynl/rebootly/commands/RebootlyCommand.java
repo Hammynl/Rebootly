@@ -19,7 +19,7 @@ public class RebootlyCommand extends BaseCommand {
     private final Rebootly plugin;
 
     public RebootlyCommand(Rebootly plugin) {
-        super("rebootly", "rebootly.admin.*", 0, 1, true);
+        super("rebootly", "rebootly.command", 0, 1, true);
         this.plugin = plugin;
     }
 

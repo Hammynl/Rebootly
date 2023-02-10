@@ -27,7 +27,7 @@ public final class Rebootly extends JavaPlugin {
         registerCommands();
         registerEvents();
 
-        if(getConfigBoolean("phone.enabled")) PhoneNotifier.getInstance().sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.key"));
+        if(getConfigBoolean("phone.enabled")) PhoneNotifier.getInstance().sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.api-key"));
         if(getConfigBoolean("metrics")) new Metrics(this, 17126);
         if(getConfigBoolean("restart.cron.enabled"))
         {
@@ -41,7 +41,7 @@ public final class Rebootly extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if(getConfig().getBoolean("phone.enabled")) PhoneNotifier.getInstance().sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.key"));
+        if(getConfig().getBoolean("phone.enabled")) PhoneNotifier.getInstance().sendPhoneNotification(getConfigString("phone.shutdown.message"),getConfigString("phone.phone-number"), getConfigString("phone.api-key"));
     }
 
     // Registration of commands and events

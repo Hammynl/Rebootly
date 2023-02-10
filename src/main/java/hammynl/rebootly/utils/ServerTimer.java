@@ -26,19 +26,15 @@ public class ServerTimer {
         return instance;
     }
 
-
     public int getTime() {
         return timeInSeconds;
     }
-
     public void setTime(int seconds) {
         timeInSeconds = seconds;
     }
-
     public void addTime(int seconds) {
         timeInSeconds = timeInSeconds + seconds;
     }
-
     public void removeTime(int seconds) {
         timeInSeconds = timeInSeconds - seconds;
     }
